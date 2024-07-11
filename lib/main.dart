@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'provider/pokemon_provider.dart';
-import 'models/pokemon.dart';
+import 'provider/perros_provider.dart';
+import 'models/perros.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => PerrosProvider()),
       ],
       child: MaterialApp(
-        title: 'Flutter PokeAPI Demo',
+        title: 'Flutter Dogs API Demo',
         home: PerrosListScreen(),
       ),
     );
@@ -27,7 +27,7 @@ class PerrosListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pokémon List'),
+        title: Text('Lista de Perros'),
       ),
       body: Consumer<PerrosProvider>(
         builder: (context, provider, child) {
@@ -40,9 +40,9 @@ class PerrosListScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               Perros perros = provider.perrosList[index];
               return ListTile(
-                title: Text(perros.name),
+                leading: Image.network(perros.url),
+                title: Text('Imagen ${index + 1}'),
                 onTap: () {
-                  // Puedes agregar una navegación a un detalle de Pokémon aquí
                 },
               );
             },

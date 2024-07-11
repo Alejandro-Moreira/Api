@@ -1,19 +1,36 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import '../models/pokemon.dart';
+import '../models/perros.dart';
 
 class ApiService {
   final String baseUrl = "https://http.dog";
 
   Future<List<Perros>> fetchPerrosList() async {
-    final response = await http.get(Uri.parse('$baseUrl/perro?limit=5'));
+    final List<Perros> perrosList = [];
 
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      final List results = data['results'];
-      return results.map((e) => Perros.fromJson(e)).toList();
-    } else {
-      throw Exception('Failed to load Pokémon');
+    const List<String> httpCodes = [
+      '200',
+      '201',
+      '202',
+      '204',
+      '301',
+      '302',
+      '303',
+      '400',
+      '401',
+      '403',
+      '404',
+      '405',
+      '406',
+      '499',
+      '500',
+      '502',
+      '503',
+      '504'
+    ];
+
+    for (var code in httpCodes) {
+      perrosList.add(Perros(url: '$baseUrl/$code.jpg'));
     }
+
+    return perrosList;
   }
 }
